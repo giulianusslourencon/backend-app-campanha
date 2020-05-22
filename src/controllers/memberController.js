@@ -47,7 +47,7 @@ module.exports = {
     },
 
     show(req, res) {
-        Member.findById(req.params.id).populate("team").exec( (err, member) => {
+        Member.findById(req.params.id).populate("team image").exec( (err, member) => {
             if (err) {
                 return res.status(400).json({
                     error: `Error on database: ${ err.message }`
