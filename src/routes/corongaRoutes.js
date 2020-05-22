@@ -1,7 +1,5 @@
-var express = require("express");
+const routes = require("express").Router();
 const CorongaController = require('../controllers/corongaController');
-
-var routes = express.Router();
 
 // DESTROY TEAMS
 routes.delete('/teams', CorongaController.teams);

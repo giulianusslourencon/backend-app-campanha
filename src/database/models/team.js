@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var teamSchema = new mongoose.Schema({
+const teamSchema = new mongoose.Schema({
     _id: String,
     name: String,
     shortName: String,

@@ -1,8 +1,6 @@
-var mongoose = require("mongoose");
-const aws = require('aws-sdk');
-const s3 = new aws.S3();
+const mongoose = require("mongoose");
 
-var memberSchema = new mongoose.Schema({
+const memberSchema = new mongoose.Schema({
     name: String,
     realName: String,
     email: String,
@@ -13,19 +11,12 @@ var memberSchema = new mongoose.Schema({
         ref: "Team"
     },
     image: {
-        key: String,
-        url: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image"
     },
     course: String,
     hasCar: Number,
     coord: Boolean
-});
-
-memberSchema.pre('remove', function() {
-    return s3.deleteObject({
-        Bucket: process.env.AWS_BUCKET,
-        Key: this.image.key
-    }).promise();
 });
 
 module.exports = mongoose.model("Member", memberSchema);

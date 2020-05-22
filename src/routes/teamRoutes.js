@@ -1,9 +1,7 @@
-var express = require("express");
+const routes = require("express").Router();
 const { celebrate, Segments, Joi } = require('celebrate');
 
 const TeamController = require('../controllers/teamController');
-
-var routes = express.Router();
 
 // INDEX ROUTE
 routes.get('/', TeamController.index);

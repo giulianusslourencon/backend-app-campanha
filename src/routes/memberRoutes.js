@@ -1,11 +1,9 @@
-var express = require("express");
+const routes = require("express").Router();
 const { celebrate, Segments, Joi } = require('celebrate');
 const multer = require('multer');
 const multerConfig = require('../config/multer');
 
 const MemberController = require('../controllers/memberController');
-
-var routes = express.Router();
 
 // INDEX ROUTE
 routes.get('/', MemberController.index);

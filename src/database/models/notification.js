@@ -1,8 +1,11 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var eventSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema({
     title: String,
-    image: String,
+    image: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image"
+    },
     description: String,
     summary: String,
     isActive: Boolean

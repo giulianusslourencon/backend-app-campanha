@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var frequencySchema = new mongoose.Schema({
+const frequencySchema = new mongoose.Schema({
     member: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Member"

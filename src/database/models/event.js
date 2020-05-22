@@ -1,16 +1,19 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var eventSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema({
     title: String,
     description: String,
-    image: String,
+    image: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image"
+    },
     summary: String,
     team: {
         type: String,
         ref: "Team"
     },
     eventGroup: String,
-    date: mongoose.Schema.Types.Date,
+    date: Date,
     location: String,
     conclusion: String
 });
