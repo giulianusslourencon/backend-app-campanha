@@ -40,7 +40,6 @@ routes.put('/:id', multer(multerConfig).single('image'), celebrate({
         name: Joi.string().required(),
         realName: Joi.string().optional().default(''),
         email: Joi.string().required().email(),
-        password: Joi.string().required(),
         wpp: Joi.string().required().min(10).max(11),
         team: Joi.string().required(),
         image: Joi.any().meta({ swaggerType: 'file' }).optional().allow(''),

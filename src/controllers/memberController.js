@@ -24,7 +24,6 @@ module.exports = {
                 name: req.body.name,
                 realName: req.body.realName,
                 email: req.body.email,
-                password: req.body.password,
                 wpp: req.body.wpp,
                 team: req.body.team,
                 image: imageId,
@@ -33,7 +32,7 @@ module.exports = {
                 coord: req.body.coord
             };
     
-            Member.create(newMember, function (err, member) {
+            Member.register(newMember, req.body.password, function (err, member) {
                 if (err) {
                     return res.status(400).json({
                         error: `Error on database: ${ err.message }`
@@ -42,7 +41,7 @@ module.exports = {
                     return res.json(member);
                 }
             });
-        })
+        });
         
     },
 
@@ -65,7 +64,6 @@ module.exports = {
                 name: req.body.name,
                 realName: req.body.realName,
                 email: req.body.email,
-                password: req.body.password,
                 wpp: req.body.wpp,
                 team: req.body.team,
                 image: imageId,
