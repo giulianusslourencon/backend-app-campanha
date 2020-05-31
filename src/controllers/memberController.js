@@ -9,7 +9,7 @@ module.exports = {
             name: 1
         }).populate("team image").exec( (err, members) => {
             if (err) {
-                return res.status(204).json({
+                return res.status(400).json({
                     error: `Error on database: ${ err.message }`
                 });
             } else {

@@ -9,7 +9,7 @@ module.exports = {
                 return next(err);
             }
             if (!user) {
-                return res.json({ err: info.message });
+                return res.status(400).json({ err: info.message });
             }
             req.login(user, loginErr => {
                 if (loginErr) {

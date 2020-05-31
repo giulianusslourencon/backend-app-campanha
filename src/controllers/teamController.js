@@ -1,11 +1,10 @@
 const Team = require('../database/models/team');
-const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
     index(req, res) {
         Team.find({}, (err, teams) => {
             if (err) {
-                return res.status(204).json({
+                return res.status(400).json({
                     error: `Error on database: ${ err.message }`
                 });
             } else {
