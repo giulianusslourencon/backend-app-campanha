@@ -1,5 +1,4 @@
 const passport = require('passport');
-const Member = require('../database/models/member');
 
 module.exports = {
     login(req, res, next) {
@@ -16,18 +15,8 @@ module.exports = {
                 if (loginErr) {
                     return next(loginErr);
                 }
-                return res.json({ id: user.id });
+                return res.redirect('/members/' + user.id);
             });      
         })(req, res, next)
-    },
-
-    async changePassword(req, res) {
-        const member = await Member.findById(req.params.id);
-        if (!member) return res.json({ err: 'Membro não encontrado' })
-        member.setPassword(req.body.password, function (err) {
-            if (err) return res.json(err);
-            member.save();
-            return res.json({ message: 'Senha alterada com sucesso' });
-        });
     }
 }
