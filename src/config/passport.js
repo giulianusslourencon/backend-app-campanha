@@ -1,14 +1,14 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const Member = require('../database/models/member');
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const Member = require('../database/models/member')
 
 passport.use(new LocalStrategy({
-    usernameField: 'email'
+  usernameField: 'email'
 },
-    Member.authenticate()
-));
+Member.authenticate()
+))
 
-passport.serializeUser(Member.serializeUser());
-passport.deserializeUser(Member.deserializeUser());
+passport.serializeUser(Member.serializeUser())
+passport.deserializeUser(Member.deserializeUser())
 
-module.exports = passport;
+module.exports = passport
