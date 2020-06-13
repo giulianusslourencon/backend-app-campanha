@@ -7,6 +7,8 @@ routes.get('/', (req, res) => {
 routes.use('/', require('./routes/authenticationRoutes'))
 routes.use('/members', require('./routes/memberRoutes'))
 routes.use('/members/:id/password', require('./routes/memberPasswordRoutes'))
+routes.use('/token', require('./routes/tokenRoutes'))
+
 routes.use('/teams', require('./routes/teamRoutes'))
 
 routes.use('/applyCorongaTo', require('./routes/corongaRoutes'))

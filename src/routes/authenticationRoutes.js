@@ -1,7 +1,7 @@
 const routes = require('express').Router()
 const { celebrate, Segments, Joi } = require('celebrate')
 
-const AuthenticationController = require('../controllers/authenticationController')
+const AuthenticationController = require('../controllers/memberController/authenticationController')
 
 // LOGIN ROUTE
 routes.post('/login', celebrate({

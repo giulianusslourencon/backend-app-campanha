@@ -1,6 +1,6 @@
 const Member = require('../database/models/member')
 
-const imageController = require('./imageController')
+const imageController = require('./services/imageController')
 
 module.exports = {
   index (req, res) {

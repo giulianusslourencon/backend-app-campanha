@@ -1,4 +1,4 @@
-const Image = require('../database/models/image')
+const Image = require('../../database/models/image')
 
 module.exports = {
   create (file, cb) {
@@ -24,7 +24,7 @@ module.exports = {
     }
 
     this.create(file, newId => {
-      cb(newId || !deleteImage && id || null)
+      cb(newId || (!deleteImage && id) || null)
     })
   },
 

@@ -4,11 +4,9 @@ module.exports = {
   index (req, res) {
     Team.find({}, (err, teams) => {
       if (err) {
-        return res.status(400).json({
-          error: `Error on database: ${err.message}`
-        })
+        return res.status(400).json({ err })
       } else {
-        return res.json(teams)
+        return res.json({ teams })
       }
     })
   },
@@ -24,12 +22,10 @@ module.exports = {
 
     Team.create(newTeam, function (err, team) {
       if (err) {
-        return res.status(400).json({
-          error: `Error on database: ${err.message}`
-        })
-      } else {
-        return res.json(team)
+        return res.status(400).json({ err })
       }
+
+      return res.json({ team })
     })
   },
 
@@ -45,18 +41,16 @@ module.exports = {
       new: true
     }, (err, team) => {
       if (err) {
-        return res.status(400).json({
-          error: `Error on database: ${err.message}`
-        })
+        return res.status(400).json({ err })
       } else {
-        return res.json(team)
+        return res.json({ team })
       }
     })
   },
 
   destroy (req, res) {
     Team.findByIdAndRemove(req.params.id, function (err) {
-      if (err) return res.status(400)
+      if (err) return res.status(400).json({ err })
       return res.status(204).send()
     })
   }

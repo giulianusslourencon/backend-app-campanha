@@ -1,20 +1,21 @@
 const routes = require('express').Router({ mergeParams: true })
 const { celebrate, Segments, Joi } = require('celebrate')
 
-const MemberPasswordController = require('../controllers/memberPasswordController')
+const MemberPasswordController = require('../controllers/memberController/memberPasswordController')
 
 // RESET PASSWORD ROUTE
-routes.put('/reset', celebrate({
+routes.put('/:token', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
-    id: Joi.string().required()
+    id: Joi.string().required(),
+    token: Joi.string().required()
   }),
   [Segments.BODY]: Joi.object().keys({
     password: Joi.string().required()
   })
-}), MemberPasswordController.resetPassword)
+}), MemberPasswordController.storePassword)
 
 // CHANGE PASSWORD ROUTE
-routes.put('/change', celebrate({
+routes.put('/', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
   }),
