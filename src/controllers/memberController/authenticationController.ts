@@ -1,10 +1,11 @@
-const passport = require('passport')
+import passport from 'passport'
+import { RequestHandler } from 'express'
 
-module.exports = {
-  login (req, res, next) {
+export const login: RequestHandler = async (req, res, next) => {
+  try {
     passport.authenticate('local', {
       session: false
-    }, function (err, user, info) {
+    }, (err, user, info) => {
       if (err) {
         return next(err)
       }
@@ -18,5 +19,7 @@ module.exports = {
         return res.redirect('/members/' + user.id)
       })
     })(req, res, next)
+  } catch (error) {
+    return res.status(400).json({ error })
   }
 }

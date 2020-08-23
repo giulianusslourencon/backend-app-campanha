@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer')
+import nodemailer from 'nodemailer'
 
 async function startTransporter () {
   const transporter = nodemailer.createTransport({
@@ -12,4 +12,4 @@ async function startTransporter () {
   return transporter
 }
 
-module.exports = startTransporter
+export default startTransporter

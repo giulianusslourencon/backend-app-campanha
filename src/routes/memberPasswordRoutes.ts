@@ -1,7 +1,9 @@
-const routes = require('express').Router({ mergeParams: true })
-const { celebrate, Segments, Joi } = require('celebrate')
+import express from 'express'
+import { celebrate, Segments, Joi } from 'celebrate'
 
-const MemberPasswordController = require('../controllers/memberController/memberPasswordController')
+import MemberPasswordController from '../controllers/memberController/memberPasswordController'
+
+const routes = express.Router({ mergeParams: true })
 
 // RESET PASSWORD ROUTE
 routes.put('/:token', celebrate({
@@ -25,4 +27,4 @@ routes.put('/', celebrate({
   })
 }), MemberPasswordController.changePassword)
 
-module.exports = routes
+export default routes

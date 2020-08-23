@@ -1,9 +1,11 @@
-const routes = require('express').Router()
-const { celebrate, Segments, Joi } = require('celebrate')
-const multer = require('multer')
-const multerConfig = require('../config/multer')
+import express from 'express'
+import { celebrate, Segments, Joi } from 'celebrate'
+import multer from 'multer'
+import multerConfig from '../config/multer'
 
-const MemberController = require('../controllers/memberController')
+import MemberController from '../controllers/memberController'
+
+const routes = express.Router()
 
 // INDEX ROUTE
 routes.get('/', MemberController.index)
@@ -57,4 +59,4 @@ routes.delete('/:id', celebrate({
   })
 }), MemberController.destroy)
 
-module.exports = routes
+export default routes

@@ -1,7 +1,9 @@
-const routes = require('express').Router()
-const { celebrate, Segments, Joi } = require('celebrate')
+import express from 'express'
+import { celebrate, Segments, Joi } from 'celebrate'
 
-const TeamController = require('../controllers/teamController')
+import TeamController from '../controllers/teamController'
+
+const routes = express.Router()
 
 // INDEX ROUTE
 routes.get('/', TeamController.index)
@@ -37,4 +39,4 @@ routes.delete('/:id', celebrate({
   })
 }), TeamController.destroy)
 
-module.exports = routes
+export default routes

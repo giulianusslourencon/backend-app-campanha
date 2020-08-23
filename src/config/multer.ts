@@ -1,16 +1,16 @@
-const path = require('path')
-const crypto = require('crypto')
-const multerS3 = require('multer-s3')
-const aws = require('aws-sdk')
+import path from 'path'
+import crypto from 'crypto'
+import multerS3 from 'multer-s3'
+import aws from 'aws-sdk'
 
-module.exports = {
+export default {
   dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
   storage: multerS3({
     s3: new aws.S3(),
-    bucket: process.env.AWS_BUCKET,
+    bucket: process.env.AWS_BUCKET as string,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
-    key: (req, file, cb) => {
+    key: (_req, file, cb) => {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err)
 
@@ -21,7 +21,7 @@ module.exports = {
   }),
   limits: {
     fileSize: 5 * 1024 * 1024,
-    fileFilter: (req, file, cb) => {
+    fileFilter: (_req: Express.Request, file: Express.Multer.File, cb: any) => {
       const allowedMimes = [
         'image/jpeg',
         'image/pjpeg',

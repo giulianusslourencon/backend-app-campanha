@@ -1,4 +1,4 @@
-const mongoose = require('mongoose') // Interface to MongoDB
+import mongoose from 'mongoose' // Interface to MongoDB
 
 mongoose.connect(process.env.ACDATABASEURL || 'mongodb://localhost/app_campanha', {
   useNewUrlParser: true,
@@ -11,4 +11,4 @@ mongoose.connect(process.env.ACDATABASEURL || 'mongodb://localhost/app_campanha'
   console.log('ERROR: ', err.message)
 })
 
-module.exports = mongoose
+export default mongoose
