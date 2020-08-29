@@ -3,7 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate'
 import multer from 'multer'
 import multerConfig from '../config/multer'
 
-import MemberController from '../controllers/memberController'
+import * as MemberController from '../controllers/memberController'
 
 const routes = express.Router()
 

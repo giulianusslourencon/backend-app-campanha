@@ -1,7 +1,7 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
 
-import ResetPasswordController from '../controllers/memberController/resetPasswordController'
+import * as ResetPasswordController from '../controllers/memberController/resetPasswordController'
 
 const routes = express.Router()
 

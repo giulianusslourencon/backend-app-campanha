@@ -1,7 +1,7 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
 
-import MemberPasswordController from '../controllers/memberController/memberPasswordController'
+import * as MemberPasswordController from '../controllers/memberController/memberPasswordController'
 
 const routes = express.Router({ mergeParams: true })
 

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose' // Interface to MongoDB
 
-mongoose.connect(process.env.ACDATABASEURL || 'mongodb://localhost/app_campanha', {
+const databaseURL = process.env.ACDATABASEURL || 'mongodb://localhost'
+mongoose.connect(databaseURL, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,

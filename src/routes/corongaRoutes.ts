@@ -1,6 +1,6 @@
 import express from 'express'
 
-import CorongaController from '../controllers/corongaController'
+import * as CorongaController from '../controllers/corongaController'
 
 const routes = express.Router()
 

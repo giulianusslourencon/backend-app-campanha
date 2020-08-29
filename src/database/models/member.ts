@@ -1,4 +1,4 @@
-import { Typegoose, prop, plugin, InstanceType } from 'typegoose'
+import { Typegoose, prop, plugin, InstanceType } from '@hasezoey/typegoose'
 import passportLocalMongoose from 'passport-local-mongoose'
 
 import { Image } from './image'
@@ -45,7 +45,7 @@ export class Member extends Typegoose {
   @prop({ required: true })
   wpp!: string
 
-  @prop({ required: true, ref: Team })
+  @prop({ required: true })
   team!: string
 
   @prop({ required: true, ref: Image })

@@ -1,7 +1,7 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
 
-import TeamController from '../controllers/teamController'
+import * as TeamController from '../controllers/teamController'
 
 const routes = express.Router()
 

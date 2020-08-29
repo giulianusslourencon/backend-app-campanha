@@ -1,4 +1,4 @@
-import { Typegoose, prop, Ref } from 'typegoose'
+import { Typegoose, prop, Ref } from '@hasezoey/typegoose'
 
 import { Member } from './member'
 import { Event } from './event'

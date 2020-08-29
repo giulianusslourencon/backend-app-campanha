@@ -8,7 +8,7 @@ export const index: RequestHandler = async (_req, res) => {
     const members = await Member.find({}).sort({
       coord: -1,
       name: 1
-    }).populate('team image').exec()
+    }).populate('image').exec()
     return res.json({ members })
   } catch (error) {
     return res.status(400).send({ error })
@@ -41,7 +41,7 @@ export const create: RequestHandler = async (req, res) => {
 export const show: RequestHandler = async (req, res) => {
   try {
     const member = await Member.findById(req.params.id)
-      .populate('team image').exec()
+      .populate('image').exec()
     return res.json({ member })
   } catch (error) {
     return res.status(400).send({ error })

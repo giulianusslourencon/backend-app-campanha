@@ -1,4 +1,4 @@
-import { Typegoose, prop, pre } from 'typegoose'
+import { Typegoose, prop, pre } from '@hasezoey/typegoose'
 import aws from 'aws-sdk'
 const s3 = new aws.S3()
 
