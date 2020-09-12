@@ -6,7 +6,7 @@ import * as imageController from './services/imageController'
 export const index: RequestHandler = async (_req, res) => {
   try {
     const members = await Member.find({}).sort({
-      coord: -1,
+      role: -1,
       name: 1
     }).populate('image').exec()
     return res.json({ members })
@@ -29,7 +29,7 @@ export const create: RequestHandler = async (req, res) => {
       image: imageId,
       course: req.body.course,
       hasCar: req.body.hasCar,
-      coord: req.body.coord
+      role: req.body.role
     }, req.body.password)
 
     return res.json({ newMember })
@@ -69,7 +69,7 @@ export const update: RequestHandler = async (req, res) => {
       image: imageId,
       course: req.body.course,
       hasCar: req.body.hasCar,
-      coord: req.body.coord
+      role: req.body.role
     }
 
     await member.updateOne(newMemberInfos)

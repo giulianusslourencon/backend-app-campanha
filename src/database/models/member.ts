@@ -1,8 +1,10 @@
-import { Typegoose, prop, plugin, InstanceType } from '@hasezoey/typegoose'
-import passportLocalMongoose from 'passport-local-mongoose'
+import {
+  Typegoose, prop, staticMethod,
+  InstanceType, ModelType, instanceMethod
+} from '@hasezoey/typegoose'
+import { PERMISSION } from '../../utils/permissions'
 
 import { Image } from './image'
-import { Team } from './team'
 
 interface INewMember {
   name: string
@@ -13,18 +15,8 @@ interface INewMember {
   image: string | null
   course: string
   hasCar: number
-  coord: boolean
+  role: PERMISSION
 }
-
-@plugin(passportLocalMongoose, {
-  usernameField: 'email',
-  errorMessages: {
-    MissingPasswordError: 'Nenhuma senha passada',
-    MissingUsernameError: 'Nenhum usuário passado',
-    IncorrectPasswordError: 'Usuário ou senha incorretos',
-    IncorrectUsernameError: 'Usuário ou senha incorretos'
-  }
-})
 
 export class Member extends Typegoose {
   @prop({ required: true })
@@ -33,14 +25,11 @@ export class Member extends Typegoose {
   @prop({ required: true })
   realName!: string
 
-  @prop({ required: true })
+  @prop({ required: true, unique: true })
   email!: string
 
-  @prop({ required: true, select: false })
-  salt!: string
-
-  @prop({ required: true, select: false })
-  hash!: string
+  @prop({ required: true })
+  pwd!: string
 
   @prop({ required: true })
   wpp!: string
@@ -58,19 +47,35 @@ export class Member extends Typegoose {
   hasCar!: number
 
   @prop({ required: true })
-  coord!: boolean
+  role!: PERMISSION
 
-  setPassword: ((newPassword: string) =>
-    Promise<InstanceType<Member>>) | undefined
+  @instanceMethod
+  setPassword(this: InstanceType<Member>, newPassword: string) {
+    const hashedPassword = newPassword
+    this.pwd = hashedPassword
+    return this
+  }
 
-  changePassword: ((curPassword: string, newPassword: string) =>
-    Promise<InstanceType<Member>>) | undefined
+  @instanceMethod
+  changePassword(this: InstanceType<Member>,
+    curPassword: string, newPassword: string
+  ) {
+    if (!this.matchPassword(curPassword)) throw new Error('Wrong password')
+    return this.setPassword(newPassword)
+  }
 
-  static authenticate: () => any
-  static serializeUser: () => any
-  static deserializeUser: () => any
-  static register: (member: INewMember, password: string) =>
-    Promise<InstanceType<Member>>
+  @instanceMethod
+  matchPassword(this: InstanceType<Member>, password: string) {
+    return password === this.pwd
+  }
+
+  @staticMethod
+  static async register(this: ModelType<Member> & typeof Member,
+    member: INewMember, password: string
+  ) {
+    const hashedPassword = password
+    return await this.create({ ...member, pwd: hashedPassword })
+  }
 }
 
 const memberModel = new Member().getModelForClass(Member)

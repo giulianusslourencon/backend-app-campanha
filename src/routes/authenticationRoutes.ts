@@ -1,5 +1,6 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
+import * as permissions from '../utils/permissions'
 
 import * as AuthenticationController from '../controllers/memberController/authenticationController'
 
@@ -12,5 +13,11 @@ routes.post('/login', celebrate({
     password: Joi.string().required()
   })
 }), AuthenticationController.login)
+
+// AUTOLOGIN ROUTE
+routes.post('/autologin',
+  permissions.decodeUser,
+  AuthenticationController.autoLogin
+)
 
 export default routes
