@@ -1,14 +1,13 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
 
+import * as permissions from '../utils/permissions'
 import * as TeamController from '../controllers/teamController'
 
 const routes = express.Router()
 
-// INDEX ROUTE
 routes.get('/', TeamController.index)
 
-// CREATE ROUTE
 routes.post('/', celebrate({
   [Segments.BODY]: Joi.object().keys({
     id: Joi.string().required(),
@@ -17,9 +16,9 @@ routes.post('/', celebrate({
     description: Joi.string().optional().default(''),
     score: Joi.number().required()
   })
-}), TeamController.create)
+}), permissions.verifyRoutePermission(permissions.PERMISSION.COORD),
+  TeamController.create)
 
-// UPDATE ROUTE
 routes.put('/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
@@ -30,13 +29,14 @@ routes.put('/:id', celebrate({
     description: Joi.string().optional().default(''),
     score: Joi.number().required()
   })
-}), TeamController.update)
+}), permissions.verifyRoutePermission(permissions.PERMISSION.COORD),
+  TeamController.update)
 
-// DESTROY ROUTE
 routes.delete('/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
   })
-}), TeamController.destroy)
+}), permissions.verifyRoutePermission(permissions.PERMISSION.COORD),
+  TeamController.destroy)
 
 export default routes

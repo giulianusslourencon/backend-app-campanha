@@ -68,7 +68,11 @@ export const verifyRoutePermission = (routePermission: PERMISSION) => {
 
 export const verifySelfRoute: RequestHandler = (req: AuthRequest, res, next) => {
   try {
-    if (req.user?._id !== req.params.id) throw new Error('Unauthorized')
+    if (
+      req.user!.role !== PERMISSION.MASTER &&
+      req.user!._id !== req.params.id
+    ) throw new Error('Unauthorized')
+
     next()
   } catch (error) {
     return res.status(403).send(error.message)

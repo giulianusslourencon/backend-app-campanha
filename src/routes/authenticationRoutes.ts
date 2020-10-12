@@ -1,12 +1,11 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
-import * as permissions from '../utils/permissions'
 
+import * as permissions from '../utils/permissions'
 import * as AuthenticationController from '../controllers/memberController/authenticationController'
 
 const routes = express.Router()
 
-// LOGIN ROUTE
 routes.post('/login', celebrate({
   [Segments.BODY]: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -14,7 +13,6 @@ routes.post('/login', celebrate({
   })
 }), AuthenticationController.login)
 
-// AUTOLOGIN ROUTE
 routes.post('/autologin',
   permissions.decodeUser,
   AuthenticationController.autoLogin

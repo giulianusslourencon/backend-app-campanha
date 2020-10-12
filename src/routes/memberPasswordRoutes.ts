@@ -1,11 +1,11 @@
 import express from 'express'
 import { celebrate, Segments, Joi } from 'celebrate'
 
+import * as permissions from '../utils/permissions'
 import * as MemberPasswordController from '../controllers/memberController/memberPasswordController'
 
 const routes = express.Router({ mergeParams: true })
 
-// RESET PASSWORD ROUTE
 routes.put('/:token', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required(),
@@ -16,7 +16,6 @@ routes.put('/:token', celebrate({
   })
 }), MemberPasswordController.storePassword)
 
-// CHANGE PASSWORD ROUTE
 routes.put('/', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
@@ -25,6 +24,7 @@ routes.put('/', celebrate({
     currentPassword: Joi.string().required(),
     newPassword: Joi.string().required()
   })
-}), MemberPasswordController.changePassword)
+}), permissions.decodeUser, permissions.verifySelfRoute,
+  MemberPasswordController.changePassword)
 
 export default routes

@@ -3,14 +3,13 @@ import { celebrate, Segments, Joi } from 'celebrate'
 import multer from 'multer'
 import multerConfig from '../config/multer'
 
+import * as permissions from '../utils/permissions'
 import * as MemberController from '../controllers/memberController'
 
 const routes = express.Router()
 
-// INDEX ROUTE
 routes.get('/', MemberController.index)
 
-// CREATE ROUTE
 routes.post('/', multer(multerConfig).single('image'), celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().required(),
@@ -24,16 +23,15 @@ routes.post('/', multer(multerConfig).single('image'), celebrate({
     hasCar: Joi.number().optional(),
     role: Joi.number().optional().default(0)
   })
-}), MemberController.create)
+}), permissions.verifyRoutePermission(permissions.PERMISSION.COORD),
+  MemberController.create)
 
-// SHOW ROUTE
 routes.get('/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
   })
 }), MemberController.show)
 
-// UPDATE ROUTE
 routes.put('/:id', multer(multerConfig).single('image'), celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
@@ -50,13 +48,13 @@ routes.put('/:id', multer(multerConfig).single('image'), celebrate({
     hasCar: Joi.number().optional(),
     role: Joi.number().optional().default(0)
   })
-}), MemberController.update)
+}), permissions.verifySelfRoute, MemberController.update)
 
-// DESTROY ROUTE
 routes.delete('/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     id: Joi.string().required()
   })
-}), MemberController.destroy)
+}), permissions.verifyRoutePermission(permissions.PERMISSION.COORD),
+  MemberController.destroy)
 
 export default routes
